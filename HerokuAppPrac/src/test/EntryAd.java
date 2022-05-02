@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class EntryAd {
 
@@ -17,8 +19,13 @@ public class EntryAd {
 	
 	@BeforeTest
 	public void setup() {
-		System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-		driver = new ChromeDriver();
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--headless");
+		driver = new ChromeDriver(options);
+		//System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
 		driver.get("https://the-internet.herokuapp.com/");
 		
 	}
